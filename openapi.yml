@@ -1,0 +1,146 @@
+openapi: '3.0.2'
+info:
+  title: MICRO SERVICES CURD OPERATIONS
+  version: '1.0'
+servers:
+  - url: http://localhost:8000
+
+
+paths:
+  /createtask:
+    post:
+      tags:
+        - task
+      description: taskcreated
+      operationId: taskcreated
+      responses:
+        '201':
+          description: taskCreate Sucessfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: taskCreateFailure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      requestBody:
+        description: taskCreate
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BODYDATA'
+  /gettask:
+    get:
+      tags:
+        - task
+      description:  Gettask
+      operationId: Gettask
+      responses:
+        '201':
+          description: Gettask Sucessfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BODYDATA'
+        '400':
+          description: Gettask UserCreateFailure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /Updatetask/{questionid}:
+    put:
+      tags:
+        - task
+      description:  Updatetask
+      operationId: Updatetask
+      parameters:
+        - name: questionid
+          in: path
+          description: taskid
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: UpdatetaskSucess
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: UpdatetaskFailure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      requestBody:
+        description: Updatetask
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BODYDATA'
+  /deletetask/{questionid}:
+    delete:
+      tags:
+        - task
+      description:  deletetask
+      operationId: DELETEtask
+      parameters:
+        - name: questionid
+          in: path
+          description: topicid
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description:  DeletetaskSucessFully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: DeletetaskFailure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+            
+
+components:
+  schemas:
+    ApiResponse:
+      type: object
+      description:  ResponseInStatusCode
+      properties:
+        code: 
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string    
+          
+    BODYDATA:
+      type: object
+      properties:
+        topicid:
+          type: string
+        questionid: 
+          type: string
+        question: 
+          type: string
+        option1:
+          type: string
+        option2:
+          type: string
+        option3:
+          type: string
+        option4:
+          type: string
